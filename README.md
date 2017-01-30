@@ -1,17 +1,3 @@
-<!--
-Section on URIs
-- how to read (diagrams)
-- query parameters (think "arguments")
-- RESTful apis (paths!)
-- API keys!
-
-> APIs need to be well-structured!
-
-Section on JSON
-- how to read ("arrays an objects" -> "vectors and lists")
-- th `str()` function is super useful!
--->
-
 # Module 11: Accessing Web APIs
 
 `R` is able to load data from external packages or read it from locally-saved `.csv` files, but it is also able to download data directly from web sites on the internet. This allows scripts to always work with the latest data available, performing analysis on data that may be changing rapidly (such as from social networks or other live events). Web services may make their data easily accessible to computer programs like R scripts by offering an **Application Programming Interface (API)**. A web service's API specifies _where_ and _how_ particular data may be accessed, and many web services follow a particular style known as _Representational State Transfer (REST)_. This module will cover how to access and work with data from these _RESTful APIs_.
@@ -22,10 +8,16 @@ Section on JSON
 **Contents**
 
 - [Resources](#resources)
-- [REST APIs](#rest-apis)
-- [Accessing Data](#accessing-data)
-- [Data Structure](#data-structure)
-- [Flattening Data](#flattening-data)
+- [Web APIs](#web-apis)
+  - [RESTful Requests](#restful-requests)
+    - [URIs](#uris)
+      - [Query Parameters](#query-parameters)
+      - [Access Tokens and API Keys](#access-tokens-and-api-keys)
+    - [HTTP Verbs](#http-verbs)
+- [Accessing Web APIs](#accessing-web-apis)
+- [JSON Data](#json-data)
+  - [Parsing JSON](#parsing-json)
+  - [Flattening Data](#flattening-data)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
