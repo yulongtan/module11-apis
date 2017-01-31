@@ -81,12 +81,3 @@ poke.moves <- arrange(poke.moves, -move.rank)
 # your pokemon's name. Be sure to check that there is a link to the sprite you chose.
 poke.img <- poke.data$sprites
 download.file(poke.img$front_default[1], destfile="png/dragonite.png", mode="wb")
-
-
-
-
-
-
-
-
-
