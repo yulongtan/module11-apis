@@ -3,6 +3,7 @@
 # Load the httr and jsonlite libraries for accessing data
 library(httr)
 library(jsonlite)
+library(dplyr)
 
 ## For these questions, look at the API documentation to identify the appropriate endpoint and information.
 ## Then send GET() request to fetch the data, then extract the answer to the question
@@ -13,12 +14,26 @@ years <- fromJSON(content(response, 'text'))
 years
 
 # What is the "country code" for the "Syrian Arab Republic"?
-codes <- GET('http://data.unhcr.org/api/countries/list.json')
+countries <- GET('http://data.unhcr.org/api/countries/list.json')
+countries.body <- fromJSON(content(countries, 'text'))
+View(countries.body)
+
+countries.body %>% 
+  filter(name_en == 'Syrian Arab Republic') %>% 
+  select(country_code) %>% 
+  print()
 
 # How many persons of concern from Syria applied for residence in the USA in 2013?
 # Hint: you'll need to use a query parameter
 # Use the `str()` function to print the data of interest
 # See http://www.unhcr.org/en-us/who-we-help.html for details on these terms
+
+query.params <- list(year = 2013, country_of_origin = 'SYR', 
+                     country_of_residence = 'USA')
+concern.response <- GET('http://data.unhcr.org/api/stats/persons_of_concern.json',
+                        query = query.params)
+concern.body <- fromJSON(content(concern.response, 'text')) %>% 
+  View()
 
 
 ## And this was only 2013...
@@ -27,11 +42,16 @@ codes <- GET('http://data.unhcr.org/api/countries/list.json')
 # How many *refugees* from Syria settled the USA in all years in the data set (2000 through 2013)?
 # Hint: check out the "time series" end points
 
+year.params <- list(population_type_code = 'RF', country_of_origin = 'SYR', 
+                    country_of_residence = 'TUR')
+year.response <- GET('http://data.unhcr.org/api/stats/time_series_all_years.json',
+                     query = year.params)
+year.body <- fromJSON(content(year.response, 'text'))
 
 # Use the `plot()` function to plot the year vs. the value.
 # Add `type="o"` as a parameter to draw a line
 
-
+plot(year.body$year, year.body$value, type = 'o')
 
 # Pick one other country in the world (e.g., Turkey).
 # How many *refugees* from Syria settled in that country in all years in the data set (2000 through 2013)?
